@@ -1,10 +1,9 @@
+import logging 
 from rest_framework.viewsets import ModelViewSet 
-
 from .models import User, Project, Category, Priority, Task 
-
 from .serializers import UserSerializer, ProjectSerializer, CategorySerializer, PrioritySerializer, TaskSerializer 
 
- 
+logger = logging.getLogger(__name__)  
 
 class UserViewSet(ModelViewSet): 
 
@@ -12,23 +11,17 @@ class UserViewSet(ModelViewSet):
 
     serializer_class = UserSerializer 
 
- 
-
 class ProjectViewSet(ModelViewSet): 
 
     queryset = Project.objects.all() 
 
     serializer_class = ProjectSerializer 
-
  
-
 class CategoryViewSet(ModelViewSet): 
 
     queryset = Category.objects.all() 
 
     serializer_class = CategorySerializer 
-
- 
 
 class PriorityViewSet(ModelViewSet): 
 
@@ -36,10 +29,20 @@ class PriorityViewSet(ModelViewSet):
 
     serializer_class = PrioritySerializer 
 
- 
-
 class TaskViewSet(ModelViewSet): 
 
     queryset = Task.objects.all() 
 
     serializer_class = TaskSerializer 
+
+    filter_backends = [DjangoFilterBackend, SearchFilter] 
+
+    filterset_fields = ['project', 'priority', 'category'] 
+
+    search_fields = ['title', 'description'] 
+
+    def perform_create(self, serializer): 
+
+        logger.info("Creating a new task") 
+
+        serializer.save() 
