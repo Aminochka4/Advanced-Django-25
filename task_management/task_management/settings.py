@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework', 
     'core', 
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -101,6 +102,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'core.User'  # Replace 'core' with your app name
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -133,7 +136,13 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend', 
         'rest_framework.filters.SearchFilter', 
     ],
-     'PAGE_SIZE': 10,
+    'PAGE_SIZE': 10,
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [ 
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication', 
+
+    ], 
 } 
 
 LOGGING = { 
