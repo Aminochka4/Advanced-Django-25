@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Health Goals</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Edit Your Health Goals</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="calories">Calorie Goal:</label>
+                <input type="number" id="calories" name="calories" class="form-control" value="{{ health_goal.daily_calorie_goal }}" required>
+            </div>
+            <div class="form-group">
+                <label for="carbs">Carb Goal (g):</label>
+                <input type="number" id="carbs" name="carbs" class="form-control" value="{{ health_goal.carb_goal }}" required>
+            </div>
+            <div class="form-group">
+                <label for="protein">Protein Goal (g):</label>
+                <input type="number" id="protein" name="protein" class="form-control" value="{{ health_goal.protein_goal }}" required>
+            </div>
+            <div class="form-group">
+                <label for="fat">Fat Goal (g):</label>
+                <input type="number" id="fat" name="fat" class="form-control" value="{{ health_goal.fat_goal }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="/" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
