@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Список заказов</h2>
+
+{% if buy_orders %}
+    <ul>
+        {% for order in buy_orders %}
+            <li>
+                {{ order.product.name }} ({{ order.quantity }} шт.) 
+                — покупатель: {{ order.buyer.username }}
+                <a href="{% url 'accept_buy_order' order.id %}">Принять</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Нет заказов на ваши товары.</p>
+{% endif %}
+
+{% endblock %}

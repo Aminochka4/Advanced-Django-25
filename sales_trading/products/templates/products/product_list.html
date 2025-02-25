@@ -1,0 +1,27 @@
+<h2>Product Catalog</h2>
+
+<form method="get">
+    <label for="category">Filter by category:</label>
+    <select name="category" id="category">
+        <option value="">All</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+<a href="{% url 'add_product' %}">Add Product</a>
+
+<ul>
+    {% for product in products %}
+        <li>
+            <a href="{% url 'product_detail' product.id %}">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100">
+                {% endif %}
+                {{ product.name }} - {{ product.price }}$
+            </a>
+        </li>
+    {% endfor %}
+</ul>
