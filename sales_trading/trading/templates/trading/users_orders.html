@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2 class="mt-4">My Orders</h2>
+    {% if orders %}
+        <div class="table-responsive">
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.transaction.buy_order.product.name }}</td>
+                            <td>{{ order.status }}</td>
+                            <td>
+                                {% if order.status == 'pending' %}
+                                    <a href="{% url 'pay_invoice' order.id %}" class="btn btn-success btn-sm">Pay</a>
+                                {% else %}
+                                    <span class="text-muted">No action needed</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-muted">You haven't placed any orders yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

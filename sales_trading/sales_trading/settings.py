@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/users/login/'
+
 AUTH_USER_MODEL = 'users.UserProfile'
 
 MEDIA_URL = '/media/'
@@ -61,10 +63,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'sales_trading.urls'
 
+import os
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # Должно быть прописано
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,6 +81,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'sales_trading.wsgi.application'
 

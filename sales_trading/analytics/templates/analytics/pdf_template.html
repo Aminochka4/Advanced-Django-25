@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>Trade Analytics Report</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Total Trades</th>
+                <th>Total Revenue</th>
+                <th>Profit/Loss</th>
+                <th>Trading Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in analytics %}
+            <tr>
+                <td>{{ entry.date }}</td>
+                <td>{{ entry.total_trades }}</td>
+                <td>${{ entry.total_revenue }}</td>
+                <td>${{ entry.profit_loss }}</td>
+                <td>{{ entry.trading_volume }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

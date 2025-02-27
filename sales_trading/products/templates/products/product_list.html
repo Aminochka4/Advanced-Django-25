@@ -1,27 +1,54 @@
-<h2>Product Catalog</h2>
+{% extends "base.html" %}
 
-<form method="get">
-    <label for="category">Filter by category:</label>
-    <select name="category" id="category">
-        <option value="">All</option>
-        {% for category in categories %}
-            <option value="{{ category.id }}">{{ category.name }}</option>
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Product Catalog</h1>
+
+    <!-- Фильтр по категории -->
+    <form method="get" class="mb-4 d-flex align-items-center gap-2">
+        <label for="category" class="form-label fw-bold">Filter by category:</label>
+        <select name="category" id="category" class="form-select w-auto">
+            <option value="">All</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <!-- Кнопка добавления продукта -->
+    <div class="text-end mb-3">
+        <a href="{% url 'add_product' %}" class="btn btn-success">Add Product</a>
+    </div>
+
+    <!-- Сетка продуктов -->
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-dark">
+                                {{ product.name }}
+                            </a>
+                        </h5>
+                        <p class="card-text fw-bold">${{ product.price }}</p>
+
+                        {% if request.user.is_authenticated and request.user != product.seller %}
+                            <form action="{% url 'create_buy_order' product.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary w-100">Buy</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted text-center">No products available.</p>
         {% endfor %}
-    </select>
-    <button type="submit">Filter</button>
-</form>
-
-<a href="{% url 'add_product' %}">Add Product</a>
-
-<ul>
-    {% for product in products %}
-        <li>
-            <a href="{% url 'product_detail' product.id %}">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100">
-                {% endif %}
-                {{ product.name }} - {{ product.price }}$
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+    </div>
+</div>
+{% endblock %}
