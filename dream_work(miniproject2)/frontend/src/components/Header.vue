@@ -2,7 +2,7 @@
   <header style="background-color: #ffe6e6; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);">
     <div style="width: 100%; margin-left: auto; margin-right: auto; padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.75rem; padding-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between; background-color: #D40000;">
       <router-link to="/" style="font-size: 1.25rem; font-weight: 600; letter-spacing: -0.025em; color: #FFFFFF; transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; text-decoration: none;">
-        <span style="font-size: 1.5rem; display: inline-block;">Dream Job</span>
+        <span style="font-size: 1.5rem; display: inline-block;">Dream Work</span>
       </router-link>
 
       <div v-if="$route.path === '/login' || $route.path === '/register'" style="display: flex; align-items: center;">
